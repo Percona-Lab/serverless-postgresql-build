@@ -1,0 +1,31 @@
+#!/usr/bin/make -f
+# See debhelper(7) (uncomment to enable)
+# output every command that modifies files on the build system.
+#export DH_VERBOSE = 1
+export GIT_VERSION = local
+export BUILD_TYPE = release 
+
+%:
+	dh $@
+
+TMP=$(CURDIR)/debian/tmp/
+
+override_dh_auto_install:
+	mkdir -p debian/neondatabase-neon-pg14/opt/neondatabase-neon
+	cp -av compute_tools debian/neondatabase-neon-pg14/opt/neondatabase-neon/
+	cp -av control_plane debian/neondatabase-neon-pg14/opt/neondatabase-neon/
+	cp -av docs debian/neondatabase-neon-pg14/opt/neondatabase-neon/
+	cp -av target debian/neondatabase-neon-pg14/opt/neondatabase-neon/
+	cp -av libs debian/neondatabase-neon-pg14/opt/neondatabase-neon/
+	cp -av vendor debian/neondatabase-neon-pg14/opt/neondatabase-neon/
+	cp -av pg_install debian/neondatabase-neon-pg14/opt/neondatabase-neon/
+	cp -av pageserver debian/neondatabase-neon-pg14/opt/neondatabase-neon/
+	cp -av pgxn debian/neondatabase-neon-pg14/opt/neondatabase-neon/
+	cp -av proxy debian/neondatabase-neon-pg14/opt/neondatabase-neon/
+	cp -av safekeeper debian/neondatabase-neon-pg14/opt/neondatabase-neon/
+	cp -av scripts debian/neondatabase-neon-pg14/opt/neondatabase-neon/
+	cp -av storage_broker debian/neondatabase-neon-pg14/opt/neondatabase-neon/
+	cp -av test_runner debian/neondatabase-neon-pg14/opt/neondatabase-neon/
+	cp -av trace debian/neondatabase-neon-pg14/opt/neondatabase-neon/
+	cp -av workspace_hack debian/neondatabase-neon-pg14/opt/neondatabase-neon/
+

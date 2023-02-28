@@ -1,0 +1,28 @@
+#!/bin/sh
+# preinst script for mongodb
+#
+# see: dh_installdeb(1)
+
+# create a mongodb group and user
+
+getent group neonuser >/dev/null 2>&1 || /usr/sbin/groupadd -r neonuser >/dev/null 2>&1
+
+if ! getent passwd neonuser >/dev/null 2>&1; then
+  /usr/sbin/useradd -g neonuser -r -d /opt/neondatabase-neon/ neonuser
+fi
+
+chmod a+w /opt/neondatabase-neon
+chown neonuser:neonuser /opt/neondatabase-neon
+/usr/sbin/runuser -l neonuser -c 'cd /opt/neondatabase-neon; ./target/release/neon_local init'
+/usr/sbin/runuser -l neonuser -c 'cd /opt/neondatabase-neon; ./target/release/neon_local start'
+/usr/sbin/runuser -l neonuser -c 'cd /opt/neondatabase-neon; ./target/release/neon_local tenant create --set-default'
+/usr/sbin/runuser -l neonuser -c 'cd /opt/neondatabase-neon; ./target/release/neon_local pg start main'
+
+#/usr/sbin/runuser -l neonuser -c 'cd /opt/neondatabase-neon; ./target/release/neon_local init --pg-version 15'
+#/usr/sbin/runuser -l neonuser -c 'cd /opt/neondatabase-neon; ./target/release/neon_local start'
+#/usr/sbin/runuser -l neonuser -c 'cd /opt/neondatabase-neon; ./target/release/neon_local tenant create --pg-version 15 --set-default'
+#/usr/sbin/runuser -l neonuser -c 'cd /opt/neondatabase-neon; ./target/release/neon_local pg start --pg-version 15 main'
+
+#DEBHELPER#
+
+exit 0

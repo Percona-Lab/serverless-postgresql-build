@@ -1,0 +1,18 @@
+Source: neondatabase-neon-pg14
+Section: database
+Priority: optional
+Maintainer: Percona Development Team <info@percona.com>
+Build-Depends: debhelper-compat (= 13)
+Standards-Version: 4.6.0
+Homepage: https://github.com/neondatabase/neon.git
+#Vcs-Browser: https://salsa.debian.org/debian/neondatabase-neon-pg14
+#Vcs-Git: https://salsa.debian.org/debian/neondatabase-neon-pg14.git
+Rules-Requires-Root: no
+
+Package: neondatabase-neon-pg14
+Architecture: any
+Depends: nodejs
+Description: Neon is a serverless open-source alternative to AWS Aurora Postgres.
+ .
+ It separates storage and compute and substitutes the PostgreSQL storage
+ layer by redistributing data across a cluster of nodes. 
