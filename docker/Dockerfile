@@ -48,6 +48,7 @@ STOPSIGNAL SIGUSR1
 COPY dockerdir /
 
 VOLUME ["/opt/neondatabase-neon/"]
+VOLUME ["/data"]
 USER neonuser
 EXPOSE 6400
 EXPOSE 9898
