@@ -49,6 +49,9 @@ COPY dockerdir /
 
 VOLUME ["/opt/neondatabase-neon/"]
 VOLUME ["/data"]
+USER root
+RUN mkdir -p /data \
+ && chown -R neonuser /data
 USER neonuser
 EXPOSE 6400
 EXPOSE 9898
