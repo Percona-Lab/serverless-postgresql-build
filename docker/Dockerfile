@@ -6,7 +6,7 @@ LABEL name="neon" \
       summary="neon" \
       org.opencontainers.image.authors="info@percona.com"
 
-ENV PGV 15
+ENV PGV 14
 
 # check repository package signature in secure way
 RUN export GNUPGHOME="$(mktemp -d)" \
@@ -34,7 +34,9 @@ RUN set -ex; \
         procps-ng \
         nodejs \
         python3 \
-        perl
+        perl \
+	nc \
+	jq
 
 RUN set -ex; \
     curl -Lf -o /tmp/neondatabase-neon-pg${PGV}-1.0.0-1.el9.x86_64.rpm https://jenkins.percona.com/downloads/neon/neondatabase-neon-pg${PGV}-1.0.0-1.el9.x86_64.rpm; \
@@ -48,10 +50,11 @@ STOPSIGNAL SIGUSR1
 COPY dockerdir /
 
 VOLUME ["/opt/neondatabase-neon/"]
-VOLUME ["/data"]
 USER root
 RUN mkdir -p /data \
  && chown -R neonuser /data
+
+VOLUME ["/data"]
 USER neonuser
 EXPOSE 6400
 EXPOSE 9898
