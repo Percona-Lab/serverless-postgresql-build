@@ -60,6 +60,6 @@ EXPOSE 6400
 EXPOSE 9898
 EXPOSE 55432
 
-#CMD ["/usr/sbin/runuser -l neonuser -c 'cd /opt/neondatabase-neon; ./target/release/neon_local start'"]
-#CMD ["/usr/sbin/runuser -l neonuser -c 'cd /opt/neondatabase-neon; ./target/release/neon_local pg start main'"]
+ENV PATH="$PATH:/opt/neondatabase-neon/target/release/"
+
 CMD ["/entrypoint.sh"]
