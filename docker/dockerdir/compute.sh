@@ -42,7 +42,31 @@ tenant_id=$(echo ${result} | jq -r .tenant_id)
 timeline_id=$(echo ${result} | jq -r .timeline_id)
 
 else
-timeline_id=$TIMELINE
+
+#If not empty CREATE_BRANCH
+#we create branch with given ancestor_timeline_id as TIMELINE
+
+if [ ! -z "$CREATE_BRANCH" ]; then
+
+PARAMS=(
+     -sb
+     -X POST
+     -H "Content-Type: application/json"
+     -d "{\"tenant_id\":\"${tenant_id}\", \"pg_version\": ${PG_VERSION}, \"ancestor_timeline_id\":\"${TIMELINE}\"}"
+     "http://${PAGESERVER}:9898/v1/tenant/${tenant_id}/timeline/"
+)
+
+result=$(curl "${PARAMS[@]}")
+echo $result | jq .
+
+echo "Overwrite tenant id and timeline id in spec file"
+tenant_id=$(echo ${result} | jq -r .tenant_id)
+timeline_id=$(echo ${result} | jq -r .timeline_id)
+
+else
+    timeline_id=$TIMELINE
+fi #end if CREATE_BRANCH
+
 fi
 
 sed "s/TENANT_ID/${tenant_id}/" ${SPEC_FILE_ORG} > ${SPEC_FILE}
