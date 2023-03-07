@@ -1,0 +1,1 @@
+docker run -d -t --name compute1 --entrypoint "/compute.sh" -p55433:55432 -e PAGESERVER=172.16.0.9 -e SAFEKEEPERS=172.16.0.9:5454 -e TENANT=51021f53054316c6533d371c9d7e273c -e TIMELINE=e08a6f1526b3ad6249a7b08fc5585e0b perconalab/neon:pg14-1.0.0
