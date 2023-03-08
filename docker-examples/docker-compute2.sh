@@ -1,0 +1,1 @@
+docker run -d -t --name compute3 --entrypoint "/compute.sh" -p55435:55432 -e PAGESERVER=172.16.0.9 -e SAFEKEEPERS=172.16.0.9:5454 -e TENANT=6c92c037a54c0e3a005cdd4a69d6e997 -e TIMELINE=4b4541ad75370114cd7956e457cc875f -e "CREATE_BRANCH=1" perconalab/neon:pg14-1.0.0
