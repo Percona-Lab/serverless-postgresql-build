@@ -12,3 +12,9 @@ docker run -d -t --name storagebroker --net=host --entrypoint "storage_broker"  
 docker run -d -t --name safekeeper1 --net=host --entrypoint "safekeeper" perconalab/neon:pg14-1.0.0 --id=1 -D /data --broker-endpoint=http://172.16.0.9:50051  -l 172.16.0.9:5454 --listen-http=0.0.0.0:7676  
 ```
 where 172.16.0.9 is IP address of the server that is reachable by network
+
+3. Deploy pageserver, file `docker-pageserver.sh`
+
+```
+docker run -d -t --name pageserver --net=host --entrypoint "pageserver" perconalab/neon:pg14-1.0.0 -D /data -c "id=1" -c "broker_endpoint='http://172.16.0.9:50051'" -c "listen_pg_addr='0.0.0.0:6400'" -c "listen_http_addr='0.0.0.0:9898'" -c "pg_distrib_dir='/opt/neondatabase-neon/pg_install'"
+```
